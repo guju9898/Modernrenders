@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <h1>Architectural Rendering Preferences</h1>
+
+    <div class="dropdown">
+        <label for="renderingType">Select Rendering Type:</label>
+        <select id="renderingType" onchange="showVariables()">
+            <option value="select">Select an Option</option>
+            <option value="interior">Interior Rendering</option>
+            <option value="exterior">Exterior Rendering</option>
+        </select>
+    </div>
+
+    <div class="dropdown" id="variablesContainer" style="display: none;">
+      
+    </div>
+
+    <!-- Interior Rendering Variables -->
+    <div class="dropdown" id="interiorVariables" style="display: none;">
+        <label for="composition">Composition:</label>
+        <select id="composition" onchange="checkCustom('composition')" data-custom="customComposition">
+            <option value="Symmetrical">Symmetrical (Balanced Frame)</option>
+            <option value="Asymmetrical">Asymmetrical (Dynamic and Unique)</option>
+            <option value="Leading Lines">Leading Lines</option>
+            <option value="Centered">Centered</option>
+            <option value="Diagonal">Diagonal</option>
+            <option value="Framing">Framing</option>
+            <option value="Negative Space">Negative Space</option>
+            <option value="Patterns and Repetition">Patterns and Repetition</option>
+            <option value="Minimalist">Minimalist</option>
+            <option value="custom">Custom (Type your own)</option>
+            <!-- Add more options as needed -->
+        </select>
+        <input type="text" id="customComposition" style="display: none;" placeholder="Enter Your Own Option" oninput="checkCustom('composition')">
+
+        
+
+        <label for="cameraAngle">Camera Angle:</label>
+        <select id="cameraAngle" onchange="checkCustom('cameraAngle')" data-custom="customCameraAngle">
+            <option value="WideAngle">Wide Angle (Capturing the entire room)</option>
+            <option value="CloseUp">Close-Up (Emphasizing specific details)</option>
+            <option value="AerialView">Aerial View (Overhead perspective)</option>
+            <option value="EyeLevel">Eye-Level (Viewer perspective)</option>
+            <option value="CornerAngle">Corner Angle (From room corners)</option>
+            <option value="EntrywayView">Entryway View (First impression)</option>
+            <option value="HallwayView">Hallway View (Long perspective)</option>
+            <option value="360DegreeView">360-Degree View (Virtual tour)</option>
+            <option value="custom">Custom (Type your own)</option>
+            <!-- Add more options as needed -->
+        </select>
+        <input type="text" id="customCameraAngle" style="display: none;" placeholder="Enter Your Own Option" oninput="checkCustom('cameraAngle')">
+
+
+        <label for="designStyle">Design Style:</label>
+        <select id="designStyle" onchange="checkCustom('designStyle')" data-custom="customDesignStyle">
+            <option value="Modern">Modern</option>
+            <option value="Contemporary">Contemporary</option>
+            <option value="Traditional">Traditional</option>
+            <option value="Minimalist">Minmalist</option>
+            <option value="Industrial">Scandinavian</option>
+            <option value="Mediterranean">Mediterranean</option>
+            <option value="Rustic">Rustic</option>
+            <option value="Vintage">Vintage</option>
+            <option value="Eclectic">Eclectic</option>
+            <option value="Baroque">Baroque</option>
+            <option value="custom">Custom (Type your own)</option>
+            <!-- Add more options as needed -->
+        </select>
+        <input type="text" id="customDesignStyle" style="display: none;" placeholder="Enter Your Own Option" oninput="checkCustom('designStyle')">
+
+
+        <label for="roomType">Room Type:</label>
+        <select id="roomType" onchange="checkCustom('roomType" data-custom="customRoomType">
+            <option value="LivingRoom">Living Room</option>
+            <option value="Kitchen">Kitchen</option>
+            <option value="Bedroom">Bedroom</option>
+            <option value="Bathroom">Bathroom</option>
+            <option value="DiningRoom">Dining Room</option>
+            <option value="HomeOffice">Home Office</option>
+            <option value="Nursery">Nursery</option>
+            <option value="HomeTheater">Home Theater</option>
+            <option value="WalkInCloset">Walk-in Closet</option>
+            <option value="Gym">Gym</option>
+            <option value="Library">Library</option>
+            <option value="Study">Study</option>
+            <option value="custom">Custom (Type your own)</option>
+            <!-- Add more options as needed -->
+        </select>
+        <input type="text" id="customRoomType" style="display: none;" placeholder="Enter Your Own Option" oninput="checkCustom('roomType')">
+        
+        
+
+        <label for="flooring">Flooring:</label>
+        <select id="flooring" onchange="checkCustom('Flooring')" data-custom="customFlooring">
+            <option value="Hardwood">Hardwood</option>
+            <option value="Laminate">Laminate</option>
+            <option value="Tile">Tile</option>
+            <option value="Carpet">Carpet</option>
+            <option value="Concrete">Concrete</option>
+            <option value="Vinyl">Vinyl</option>
+            <option value="Marble">Marble</option>
+            <option value="Cork">Cork</option>
+            <option value="Bamboo">Bamboo</option>
+            <option value="Stone">Stone</option>
+            <option value="custom">Custom (Type your own)</option>
+            <!-- Add more options as needed -->
+        </select>
+        <input type="text" id="customFlooring" style="display: none;" placeholder="Enter Your Own Option" oninput="checkCustom('flooring')">
+        
+        
+        
+        <label for="colorPalette">Color Palette:</label>
+        <select id="colorPalette" onchange="checkCustom('colorPalette')" data-custom="customColorPalette">
+            <option value="neutralTones">Neutral Tones (Whites, Beiges)</option>
+            <option value="earthyColors">Earthy Colors (Browns, Greens)</option>
+            <option value="monochromatic">Monochromatic (Various Shades)</option>
+            <option value="vibrantHues">Vibrant Hues (Bold Colors)</option>
+            <option value="pastelShades">Pastel Shades (Soft Colors)</option>
+            <option value="boldContrasts">Bold Contrasts (Black & White)</option>
+            <option value="coastalColors">Coastal Colors (Blues, Whites)</option>
+            <option value="desertTones">Desert Tones (Warm Earthy)</option>
+            <option value="urbanColors">Urban Colors (Grays, Blues)</option>
+            <option value="cottagecore">Cottagecore (Soft and Warm)</option>
+            <option value="custom">Custom (Type your own)</option>
+            <!-- add more options as needed -->
+        </select>
+        <input type="text" id="customColorPalette" style="display: none;" placeholder="Enter Your Own Option" oninput="checkCustom('colorPalette')">
+        
+        
+        
+        <label for="lighting">Lighting:</label>
+        <select id="lighting" onchange="checkCustom('lighting')" data-custom="customLighting">
+          <option value="chandeliers">Chandeliers</option>
+          <option value="pendantLights">Pendant Lights</option>
+          <option value="floorLamps">Floor Lamps</option>
+          <option value="tableLamps">Table Lamps</option>
+          <option value="wallSconces">Wall Sconces</option>
+          <option value="recessedLighting">Recessed Lighting</option>
+          <option value="naturalLight">Natural Light</option>
+          <option value="ledLighting">LED Lighting</option>
+          <option value="candlelight">Candlelight</option>
+          <option value="smartLighting">Smart Lighting</option>
+          <option value="custom">Custom (Type your own)</option>
+        </select>
+        <input type="text" id="customLighting" style="display: none;" placeholder="Enter Your Own Option" oninput="checkCustom('lighting')">
+        
+        
+    </div>
+    
+
+    <!-- Exterior Rendering Variables -->
+    <div class="dropdown" id="exteriorVariables" style="display: none;">
+        <label for="exteriorType">Exterior Type:</label>
+        <select id="exteriorType" onchange="checkCustom('exteriorType')" data-custom="customExteriorType">
+            <option value="Residential">Residential</option>
+            <option value="Commercial">Commercial</option>
+            <option value="Industrial">Industrial</option>
+            <option value="Public Building">Public Building</option>
+            <option value="Landscaping or Garden">Landscaping or Garden</option>
+            <option value="Pool Area">Pool Area</option>
+            <option value="Patio or Deck">Patio or Deck</option>
+            <option value="Outdoor Kitchen">Outdoor Kitchen</option>
+            <option value="custom">Custom (Type your own)</option>
+            <!-- Add more options as needed -->
+        </select>
+        <input type="text" id="customExteriorType" style="display: none;" placeholder="Enter Your Own Option" oninput="checkCustom('exteriorType')">
+
+
+        <label for="architecturalStyle">Architectural Style:</label>
+        <select id="architecturalStyle" onchange="checkCustom('architecturalStyle')" data-custom="customArchitecturalStyle">
+          <option value="Modern">Modern</option>
+          <option value="Contemporary">Contemporary</option>
+          <option value="Traditional">Traditional</option>
+          <option value="Colonial">Colonial</option>
+          <option value="Victorian">Victorian</option>
+          <option value="Mediterranean">Mediterranean</option>
+          <option value="Industrial">Industrial</option>
+          <option value="Rustic">Rustic</option>
+          <option value="Farmhouse">Farmhouse</option>
+          <option value="Beach House">Beach House</option>
+          <option value="custom">Custom (Type your own)</option>
+            <!-- Add more options as needed -->
+        </select>
+        <input type="text" id="customArchitecturalStyle" style="display: none;" placeholder="Enter Your Own Option" oninput="checkCustom('architecturalStyle')">
+
+
+        <label for="colorpalette">Color Palette:</label>
+        <select id="colorpalette" onchange="checkCustom('colorpalette')" data-custom="customcolorpalette">
+          <option value="Neutral Tones">Neutral Tones</option>
+          <option value="Earthy Colors">Earthy Colors</option>
+          <option value="Vibrant Hues">Vibrant Hues</option>
+          <option value="Monochromatic">Monochromatic</option>
+          <option value="Pastel Shades">Pastel Shades</option>
+          <option value="Bold Contrasts">Bold Contrasts</option>
+          <option value="Natural Wood Tones">Natural Wood Tones</option>
+          <option value="Coastal Colors">Coastal Colors</option>
+          <option value="Desert Tones">Desert Tones</option>
+          <option value="Urban Colors">Urban Colors</option>
+          <option value="custom">Custom (Type your own)</option>
+            <!-- Add more options as needed -->
+        </select>
+        <input type="text" id="customcolorpalette" style="display: none;" placeholder="Enter Your Own Option" oninput="checkCustom('colorpalette')">
+        
+
+        <label for="exteriorMaterials">Exterior Materials:</label>
+        <select id="exteriorMaterials" onchange="checkCustom('exteriorMaterials')" data-custom="customExteriorMaterials">
+          <option value="Brick">Brick</option>
+          <option value="Wood">Wood</option>
+          <option value="Stone">Stone</option>
+          <option value="Stucco">Stucco</option>
+          <option value="Siding">Siding</option>
+          <option value="Concrete">Concrete</option>
+          <option value="Glass">Glass</option>
+          <option value="Metal">Metal</option>
+          <option value="Vinyl">Vinyl</option>
+          <option value="Composite">Composite</option>
+          <option value="custom">Custom (Type your own)</option>
+
+            <!-- Add more options as needed -->
+        </select>
+        <input type="text" id="customExteriorMaterials" style="display: none;" placeholder="Enter Your Own Option" oninput="checkCustom('ExteriorMaterials')">
+
+
+        <label for="roofType">Roof Type:</label>
+        <select id="roofType" onchange="checkCustom('roofType')" data-custom="customRoofType">
+          <option value="Gable">Gable</option>
+          <option value="Hip">Hip</option>
+          <option value="Mansard">Mansard</option>
+          <option value="Flat">Flat</option>
+          <option value="Gambrel">Gambrel</option>
+          <option value="Shed">Shed</option>
+          <option value="Butterfly">Butterfly</option>
+          <option value="Dome">Dome</option>
+          <option value="A-Frame">A-Frame</option>
+          <option value="Serrated">Serrated</option>
+          <option value="custom">Custom (Type your own)</option>
+            <!-- Add more options as needed -->
+        </select>
+        <input type="text" id="customRoofType" style="display: none;" placeholder="Enter Your Own Option" oninput="checkCustom('roofType')">
+        
+
+    </div>
+
+    <button onclick="showVariables()">Show Selections</button>
+
+    <div id="result"></div>
+
+   <script>
+    function showVariables() {
+        const renderingType = document.getElementById("renderingType").value;
+        const variablesContainer = document.getElementById("variablesContainer");
+        const interiorVariables = document.getElementById("interiorVariables");
+        const exteriorVariables = document.getElementById("exteriorVariables");
+
+        if (renderingType === "select") {
+            variablesContainer.style.display = "none";
+            interiorVariables.style.display = "none";
+            exteriorVariables.style.display = "none";
+        } else {
+            variablesContainer.style.display = "block";
+            if (renderingType === "interior") {
+                interiorVariables.style.display = "block";
+                exteriorVariables.style.display = "none";
+            } else if (renderingType === "exterior") {
+                interiorVariables.style.display = "none";
+                exteriorVariables.style.display = "block";
+            }
+        }
+    }
+
+    function checkCustom(selectId) {
+        const selectElement = document.getElementById(selectId);
+        const customInputId = selectElement.getAttribute("data-custom");
+        const customInputElement = document.getElementById(customInputId);
+
+        if (selectElement.value === "custom") {
+            customInputElement.style.display = "block";
+        } else {
+            customInputElement.style.display = "none";
+        }
+    }
+
+    function showSelection() {
+        const renderingType = document.getElementById("renderingType").value;
+        let selections = {};
+
+        if (renderingType === "interior") {
+            const interiorVariables = ["composition", "cameraAngle", "designStyle", "roomType", "flooring", "colorPalette", "lighting"];
+            interiorVariables.forEach(variableId => {
+                const variableElement = document.getElementById(variableId);
+                selections[variableId] = variableElement.value === "custom" ? document.getElementById(`custom${variableId}`).value : variableElement.value;
+            });
+        } else if (renderingType === "exterior") {
+            const exteriorVariables = ["exteriorType", "architecturalStyle", "colorpalette", "exteriorMaterials", "roofType"];
+            exteriorVariables.forEach(variableId => {
+                const variableElement = document.getElementById(variableId);
+                selections[variableId] = variableElement.value === "custom" ? document.getElementById(`custom${variableId}`).value : variableElement.value;
+            });
+        }
+
+        // Convert selections object to JSON string
+        const promptJSON = JSON.stringify({ prompt: selections });
+
+        // Send the JSON to the API
+        sendToApi(promptJSON);
+    }
+
+    // Inside your front-end script
+
+    // Add an event listener to the form's submit event
+   	const formElement = document.getElementById("yourFormId");
+    formElement.addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+        showSelection();
+        return false;
+    });
+
+    // Move the button and result div inside the script tag
+    const buttonElement = document.createElement("button");
+    buttonElement.textContent = "Show Selections";
+    buttonElement.addEventListener("click", showSelection);
+    document.body.appendChild(buttonElement);
+
+    const resultContainer = document.createElement("div");
+    resultContainer.id = "result";
+    document.body.appendChild(resultContainer);
+
+    function sendToApi(promptJSON) {
+        fetch("http://localhost:8080/generate-image", { // Replace with the URL of your backend server
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: promptJSON
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.blob(); // Use response.blob() to get the image data as a Blob object
+            })
+            .then(blob => {
+                const imageUrl = URL.createObjectURL(blob); // Create a data URL from the Blob object
+                const imageElement = document.createElement("img");
+                imageElement.src = imageUrl;
+                imageElement.alt = "Generated Image";
+
+                const resultContainer = document.getElementById("result");
+                resultContainer.innerHTML = "";
+                resultContainer.appendChild(imageElement);
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                const resultContainer = document.getElementById("result");
+                resultContainer.textContent = `Error: ${error.message}`;
+            });
+    }
+</script>
+</body>
+</html>
