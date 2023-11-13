@@ -334,7 +334,8 @@ function generateRendering() {
 }
 
    function sendToApi(promptJSON) {
-       console.log(promptJSON);
+     console.log('sendToApi function called');
+      console.log(promptJSON);
     fetch("https://a22d9f3a43624ea4894e670d88cb2ddf.vfs.cloud9.eu-north-1.amazonaws.com/api/call", {
     method: "POST",
     headers: {
