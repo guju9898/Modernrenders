@@ -256,133 +256,122 @@
 
     <div id="result"></div>
 
-    <script>
-   
-   function showVariables() {
-    const renderingType = document.getElementById("renderingType").value;
-    const variablesContainer = document.getElementById("variablesContainer");
-    const interiorVariables = document.getElementById("interiorVariables");
-    const exteriorVariables = document.getElementById("exteriorVariables");
-
-    if (variablesContainer && interiorVariables && exteriorVariables) {
-        if (renderingType === "select") {
-            variablesContainer.style.display = "none";
-            interiorVariables.style.display = "none";
-            exteriorVariables.style.display = "none";
-        } else {
-            variablesContainer.style.display = "block";
-            if (renderingType === "interior") {
-                interiorVariables.style.display = "block";
-                exteriorVariables.style.display = "none";
-            } else if (renderingType === "exterior") {
-                interiorVariables.style.display = "none";
-                exteriorVariables.style.display = "block";
-            }
-        }
-    }
-
-    const generateRenderingBtn = document.getElementById("generateRenderingBtn");
-    if (generateRenderingBtn) {
-        generateRenderingBtn.style.display = "block";
-    }
-}
- 
-    function checkCustom(selectId) {
-        const selectElement = document.getElementById(selectId);
-        if (selectElement) {
-            const customInputId = selectElement.getAttribute("data-custom");
-            const customInputElement = document.getElementById(customInputId);
-            if (customInputElement) {
-                if (selectElement.value === "custom") {
-                    customInputElement.style.display = "block";
-                } else {
-                    customInputElement.style.display = "none";
-                }
-            }
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', function() { 
-    function showSelection() {
+     <script>
+     
+      function showVariables() {
         const renderingType = document.getElementById("renderingType").value;
-        let selections = {};
+        const variablesContainer = document.getElementById("variablesContainer");
+        const interiorVariables = document.getElementById("interiorVariables");
+        const exteriorVariables = document.getElementById("exteriorVariables");
 
-        if (renderingType === "interior") {
-            const interiorVariables = ["composition", "cameraAngle", "designStyle", "roomType", "flooring", "colorPalette", "lighting"];
-            interiorVariables.forEach(variableId => {
-                const variableElement = document.getElementById(variableId);
-                selections[variableId] = variableElement.value === "custom" ? document.getElementById(`custom${variableId}`).value : variableElement.value;
-            });
-        } else if (renderingType === "exterior") {
-            const exteriorVariables = ["exteriorType", "architecturalStyle", "colorpalette", "exteriorMaterials", "roofType"];
-            exteriorVariables.forEach(variableId => {
-                const variableElement = document.getElementById(variableId);
-                selections[variableId] = variableElement.value === "custom" ? document.getElementById(`custom${variableId}`).value : variableElement.value;
-            });
-        }
+        if (variablesContainer && interiorVariables && exteriorVariables) {
+          if (renderingType === "select") {
+              variablesContainer.style.display = "none";
+              interiorVariables.style.display = "none";
+              exteriorVariables.style.display = "none";
+          } else {
+          variablesContainer.style.display = "block";
+          if (renderingType === "interior") {
+              interiorVariables.style.display = "block";
+              exteriorVariables.style.display = "none";
+          } else if (renderingType === "exterior") {
+              interiorVariables.style.display = "none";
+              exteriorVariables.style.display = "block";
+          }
+      }
+  }
 
-        // Convert selections object to JSON string
-        const promptJSON = JSON.stringify({ prompt: selections });
+  const generateRenderingBtn = document.getElementById("generateRenderingBtn");
+  if (generateRenderingBtn) {
+      generateRenderingBtn.style.display = "block";
+  }
+}
 
-        // Send the JSON to the API
-        sendToApi(promptJSON);
-    }
+function checkCustom(selectId) {
+  const selectElement = document.getElementById(selectId);
+  if (selectElement) {
+      const customInputId = selectElement.getAttribute("data-custom");
+      const customInputElement = document.getElementById(customInputId);
+      if (customInputElement) {
+          if (selectElement.value === "custom") {
+              customInputElement.style.display = "block";
+          } else {
+              customInputElement.style.display = "none";
+          }
+      }
+  }
+}
 
-    function generateRendering() {
-      // Hide the Generate button and show the loading indicator
-      document.getElementById("generateRenderingBtn").style.display = "none";
-      document.getElementById("loadingIndicator").style.display = "block";
+function showSelection() {
+  const renderingType = document.getElementById("renderingType").value;
+  let selections = {};
 
-      // Collect user selections and send to API
-      showSelection();
-    }
+  if (renderingType === "interior") {
+      const interiorVariables = ["composition", "cameraAngle", "designStyle", "roomType", "flooring", "colorPalette", "lighting"];
+      interiorVariables.forEach(variableId => {
+          const variableElement = document.getElementById(variableId);
+          selections[variableId] = variableElement.value === "custom" ? document.getElementById(`custom${variableId}`).value : variableElement.value;
+      });
+  } else if (renderingType === "exterior") {
+      const exteriorVariables = ["exteriorType", "architecturalStyle", "colorpalette", "exteriorMaterials", "roofType"];
+      exteriorVariables.forEach(variableId => {
+          const variableElement = document.getElementById(variableId);
+          selections[variableId] = variableElement.value === "custom" ? document.getElementById(`custom${variableId}`).value : variableElement.value;
+      });
+  }
 
-    function sendToApi(promptJSON) {
-        fetch("http://localhost:8080/generate-image", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: promptJSON
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.blob();
-        })
-        .then(blob => {
-            // Hide loading indicator
-            document.getElementById("loadingIndicator").style.display = "none";
+  const promptJSON = JSON.stringify({ prompt: selections });
+  sendToApi(promptJSON);
+}
 
-            // Show rendered image
-            const imageUrl = URL.createObjectURL(blob);
-            const imageElement = document.getElementById("renderedImage");
-            imageElement.src = imageUrl;
-            imageElement.style.display = "block";
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            const resultContainer = document.getElementById("result");
-            resultContainer.textContent = `Error: ${error.message}`;
+function generateRendering() {
+  document.getElementById("generateRenderingBtn").style.display = "none";
+  document.getElementById("loadingIndicator").style.display = "block";
+  showSelection();
+}
 
-            // Hide loading indicator
-            document.getElementById("loadingIndicator").style.display = "none";
-        });
-    }
+   function sendToApi(promptJSON) {
+   fetch("http://localhost:8080/generate-image", {
+     method: "POST",
+     headers: {
+       "Content-Type": "application/json",
+     },
+     body: promptJSON
+   })
+   .then(response => {
+     if (!response.ok) {
+       throw new Error(`HTTP error! status: ${response.status}`);
+     }
+     return response.blob();
+   })
+   .then(blob => {
+     document.getElementById("loadingIndicator").style.display = "none";
+     const imageUrl = URL.createObjectURL(blob);
+     const imageElement = document.getElementById("renderedImage");
+     imageElement.src = imageUrl;
+     imageElement.style.display = "block";
+   })
+   .catch(error => {
+     console.error("Error:", error);
+     const resultContainer = document.getElementById("result");
+     resultContainer.textContent = `Error: ${error.message}`;
+     document.getElementById("loadingIndicator").style.display = "none";
+   });
+ }
 
-  showVariables();
-  checkCustom();  
-  
-        const formElement = document.getElementById("yourFormId");
-        if (formElement) {
-            formElement.addEventListener("submit", function(event) {
-                event.preventDefault(); 
-                generateRendering();
-                return false;
-            });
-        }
-    });
+ document.addEventListener('DOMContentLoaded', function() {
+   showVariables();
+   checkCustom();
+ });
+
+ const formElement = document.getElementById("yourFormId");
+ if (formElement) {
+   formElement.addEventListener("submit", function(event) {
+     event.preventDefault(); 
+     generateRendering();
+     return false;
+   });
+ }
 </script>
 
 </body>
