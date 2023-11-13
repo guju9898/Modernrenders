@@ -258,36 +258,36 @@
 
     <script>
    
-    function showVariables() {
-        const renderingType = document.getElementById("renderingType").value;
-        const variablesContainer = document.getElementById("variablesContainer");
-        const interiorVariables = document.getElementById("interiorVariables");
-        const exteriorVariables = document.getElementById("exteriorVariables");
+   function showVariables() {
+    const renderingType = document.getElementById("renderingType").value;
+    const variablesContainer = document.getElementById("variablesContainer");
+    const interiorVariables = document.getElementById("interiorVariables");
+    const exteriorVariables = document.getElementById("exteriorVariables");
 
-        if (variablesContainer && interiorVariables && exteriorVariables) {
-            if (renderingType === "select") {
-                variablesContainer.style.display = "none";
-                interiorVariables.style.display = "none";
+    if (variablesContainer && interiorVariables && exteriorVariables) {
+        if (renderingType === "select") {
+            variablesContainer.style.display = "none";
+            interiorVariables.style.display = "none";
+            exteriorVariables.style.display = "none";
+        } else {
+            variablesContainer.style.display = "block";
+            if (renderingType === "interior") {
+                interiorVariables.style.display = "block";
                 exteriorVariables.style.display = "none";
-            } else {
-                variablesContainer.style.display = "block";
-                if (renderingType === "interior") {
-                    interiorVariables.style.display = "block";
-                    exteriorVariables.style.display = "none";
-                } else if (renderingType === "exterior") {
-                    interiorVariables.style.display = "none";
-                    exteriorVariables.style.display = "block";
-                }
+            } else if (renderingType === "exterior") {
+                interiorVariables.style.display = "none";
+                exteriorVariables.style.display = "block";
             }
-        }
-
-        const generateRenderingBtn = document.getElementById("generateRenderingBtn");
-        if (generateRenderingBtn) {
-            generateRenderingBtn.style.display = "block";
         }
     }
 
-    document.addEventListener('DOMContentLoaded', function() {  
+    const generateRenderingBtn = document.getElementById("generateRenderingBtn");
+    if (generateRenderingBtn) {
+        generateRenderingBtn.style.display = "block";
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {  
     function checkCustom(selectId) {
         const selectElement = document.getElementById(selectId);
         if (selectElement) {
