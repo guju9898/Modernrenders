@@ -275,6 +275,9 @@
                 exteriorVariables.style.display = "block";
             }
         }
+
+        // Show the Generate button after making selections
+        document.getElementById("generateRenderingBtn").style.display = "block";
     }
 
     function checkCustom(selectId) {
@@ -314,60 +317,59 @@
         sendToApi(promptJSON);
     }
 
-    // Inside your front-end script
+    function generateRendering() {
+      // Hide the Generate button and show the loading indicator
+      document.getElementById("generateRenderingBtn").style.display = "none";
+      document.getElementById("loadingIndicator").style.display = "block";
 
-    // Add an event listener to the form's submit event
-    document.addEventListener('DOMContentLoaded', function() {
-   	const formElement = document.getElementById("yourFormId");
-    if (formElement) {
-      formElement.addEventListener("submit", function(event) {
-        event.preventDefault(); // Prevent the default form submission behavior
-        showSelection();
-        return false;
-        });
-      }
-    });  
-
-    // Move the button and result div inside the script tag
-    const buttonElement = document.createElement("button");
-    buttonElement.textContent = "Show Selections";
-    buttonElement.addEventListener("click", showSelection);
-    document.body.appendChild(buttonElement);
-
-    const resultContainer = document.createElement("div");
-    resultContainer.id = "result";
-    document.body.appendChild(resultContainer);
+      // Collect user selections and send to API
+      showSelection();
+    }
 
     function sendToApi(promptJSON) {
-        fetch("http://localhost:8080/generate-image", { // Replace with the URL of your backend server
+        fetch("http://localhost:8080/generate-image", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: promptJSON
         })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.blob(); // Use response.blob() to get the image data as a Blob object
-            })
-            .then(blob => {
-                const imageUrl = URL.createObjectURL(blob); // Create a data URL from the Blob object
-                const imageElement = document.createElement("img");
-                imageElement.src = imageUrl;
-                imageElement.alt = "Generated Image";
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            // Hide loading indicator
+            document.getElementById("loadingIndicator").style.display = "none";
 
-                const resultContainer = document.getElementById("result");
-                resultContainer.innerHTML = "";
-                resultContainer.appendChild(imageElement);
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                const resultContainer = document.getElementById("result");
-                resultContainer.textContent = `Error: ${error.message}`;
-            });
+            // Show rendered image
+            const imageUrl = URL.createObjectURL(blob);
+            const imageElement = document.getElementById("renderedImage");
+            imageElement.src = imageUrl;
+            imageElement.style.display = "block";
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            const resultContainer = document.getElementById("result");
+            resultContainer.textContent = `Error: ${error.message}`;
+
+            // Hide loading indicator
+            document.getElementById("loadingIndicator").style.display = "none";
+        });
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const formElement = document.getElementById("yourFormId");
+        if (formElement) {
+            formElement.addEventListener("submit", function(event) {
+                event.preventDefault(); 
+                generateRendering();
+                return false;
+            });
+        }
+    });
 </script>
 
 </body>
