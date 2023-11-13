@@ -302,10 +302,10 @@
       }
     }
   }
-
+let selections = {};
+  
 function showSelection() {
   const renderingType = document.getElementById("renderingType").value;
-  let selections = {};
 
   if (renderingType === "interior") {
     const interiorVariables = ["composition", "cameraAngle", "designStyle", "roomType", "flooring", "colorPalette", "lighting"];
