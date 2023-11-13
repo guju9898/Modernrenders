@@ -257,7 +257,7 @@
     <div id="result"></div>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
+   
     function showVariables() {
         const renderingType = document.getElementById("renderingType").value;
         const variablesContainer = document.getElementById("variablesContainer");
@@ -287,6 +287,7 @@
         }
     }
 
+    document.addEventListener('DOMContentLoaded', function() {  
     function checkCustom(selectId) {
         const selectElement = document.getElementById(selectId);
         if (selectElement) {
