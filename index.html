@@ -286,8 +286,7 @@
         generateRenderingBtn.style.display = "block";
     }
 }
-
-document.addEventListener('DOMContentLoaded', function() {  
+ 
     function checkCustom(selectId) {
         const selectElement = document.getElementById(selectId);
         if (selectElement) {
@@ -303,6 +302,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    document.addEventListener('DOMContentLoaded', function() { 
     function showSelection() {
         const renderingType = document.getElementById("renderingType").value;
         let selections = {};
