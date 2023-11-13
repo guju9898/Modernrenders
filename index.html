@@ -342,6 +342,7 @@ function generateRendering() {
      if (!response.ok) {
        throw new Error(`HTTP error! status: ${response.status}`);
      }
+     console.log(response);
      return response.blob();
    })
    .then(blob => {
