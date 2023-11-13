@@ -303,38 +303,50 @@
     }
   }
 
-  function showSelection() {
-    const renderingType = document.getElementById("renderingType").value;
-    let selections = {};
+function showSelection() {
+  const renderingType = document.getElementById("renderingType").value;
+  let selections = {};
 
-    if (renderingType === "interior") {
-      const interiorVariables = ["composition", "cameraAngle", "designStyle", "roomType", "flooring", "colorPalette", "lighting"];
-      interiorVariables.forEach(variableId => {
-        const variableElement = document.getElementById(variableId);
-        selections[variableId] = variableElement.value === "custom" ? document.getElementById(`custom${variableId}`).value : variableElement.value;
-      });
-    } else if (renderingType === "exterior") {
-      const exteriorVariables = ["exteriorType", "architecturalStyle", "colorpalette", "exteriorMaterials", "roofType"];
-      exteriorVariables.forEach(variableId => {
-        const variableElement = document.getElementById(variableId);
-        selections[variableId] = variableElement.value === "custom" ? document.getElementById(`custom${variableId}`).value : variableElement.value;
-      });
-    }
-
-    // Add the additional fields to the selections object
-    selections["key"] = "";
-    selections["negative_prompt"] = "((out of frame)), ((extra fingers)), mutated hands, ((poorly drawn hands)), ((poorly drawn face)), (((mutation))), (((deformed))), (((tiling))), ((naked)), ((tile)), ((fleshpile)), ((ugly)), (((abstract))), blurry, ((bad anatomy)), ((bad proportions)), ((extra limbs)), cloned face, (((skinny))), glitchy, ((extra breasts)), ((double torso)), ((extra arms)), ((extra hands)), ((mangled fingers)), ((missing breasts)), (missing lips), ((ugly face)), ((fat)), ((extra legs))";
-    selections["width"] = "512";
-    selections["height"] = "512";
-    selections["samples"] = "1";
-    selections["num_inference_steps"] = "20";
-    selections["safety_checker"] = "no";
-    selections["enhance_prompt"] = "yes";
-    selections["seed"] = null;
-    selections["guidance_scale"] = 7.5;
-    selections["webhook"] = null;
-    selections["track_id"] = null;
+  if (renderingType === "interior") {
+    const interiorVariables = ["composition", "cameraAngle", "designStyle", "roomType", "flooring", "colorPalette", "lighting"];
+    interiorVariables.forEach(variableId => {
+      const variableElement = document.getElementById(variableId);
+      selections[variableId] = variableElement.value === "custom" ? document.getElementById(`custom${variableId}`).value : variableElement.value;
+    });
+  } else if (renderingType === "exterior") {
+    const exteriorVariables = ["exteriorType", "architecturalStyle", "colorpalette", "exteriorMaterials", "roofType"];
+    exteriorVariables.forEach(variableId => {
+      const variableElement = document.getElementById(variableId);
+      selections[variableId] = variableElement.value === "custom" ? document.getElementById(`custom${variableId}`).value : variableElement.value;
+    });
   }
+
+  // Add the additional fields to the selections object
+  selections["key"] = "";
+  selections["negative_prompt"] = "((out of frame)), ((extra fingers)), mutated hands, ((poorly drawn hands)), ((poorly drawn face)), (((mutation))), (((deformed))), (((tiling))), ((naked)), ((tile)), ((fleshpile)), ((ugly)), (((abstract))), blurry, ((bad anatomy)), ((bad proportions)), ((extra limbs)), cloned face, (((skinny))), glitchy, ((extra breasts)), ((double torso)), ((extra arms)), ((extra hands)), ((mangled fingers)), ((missing breasts)), (missing lips), ((ugly face)), ((fat)), ((extra legs))";
+  selections["width"] = "512";
+  selections["height"] = "512";
+  selections["samples"] = "1";
+  selections["num_inference_steps"] = "20";
+  selections["safety_checker"] = "no";
+  selections["enhance_prompt"] = "yes";
+  selections["seed"] = null;
+  selections["guidance_scale"] = 7.5;
+  selections["webhook"] = null;
+  selections["track_id"] = null;
+
+  // Log the selections object
+  console.log(selections);
+
+  // Convert the selections object into a JSON string
+  const promptJSON = JSON.stringify(selections);
+
+  // Log the JSON string
+  console.log(promptJSON);
+
+  // Send the JSON string to the backend
+  sendToApi(promptJSON);
+}
       const promptJSON = JSON.stringify(selections);
     sendToApi(promptJSON);
   }
