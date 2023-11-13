@@ -258,131 +258,143 @@
 
     <img id="renderedImage" alt="Rendered image" style="display: none;">
 
-     <script>
-     
-      function showVariables() {
-        const renderingType = document.getElementById("renderingType").value;
-        const variablesContainer = document.getElementById("variablesContainer");
-        const interiorVariables = document.getElementById("interiorVariables");
-        const exteriorVariables = document.getElementById("exteriorVariables");
+<script>
+  function showVariables() {
+    const renderingType = document.getElementById("renderingType").value;
+    const variablesContainer = document.getElementById("variablesContainer");
+    const interiorVariables = document.getElementById("interiorVariables");
+    const exteriorVariables = document.getElementById("exteriorVariables");
 
-        if (variablesContainer && interiorVariables && exteriorVariables) {
-          if (renderingType === "select") {
-              variablesContainer.style.display = "none";
-              interiorVariables.style.display = "none";
-              exteriorVariables.style.display = "none";
-          } else {
-          variablesContainer.style.display = "block";
-          if (renderingType === "interior") {
-              interiorVariables.style.display = "block";
-              exteriorVariables.style.display = "none";
-          } else if (renderingType === "exterior") {
-              interiorVariables.style.display = "none";
-              exteriorVariables.style.display = "block";
-          }
+    if (variablesContainer && interiorVariables && exteriorVariables) {
+      if (renderingType === "select") {
+        variablesContainer.style.display = "none";
+        interiorVariables.style.display = "none";
+        exteriorVariables.style.display = "none";
+      } else {
+        variablesContainer.style.display = "block";
+        if (renderingType === "interior") {
+          interiorVariables.style.display = "block";
+          exteriorVariables.style.display = "none";
+        } else if (renderingType === "exterior") {
+          interiorVariables.style.display = "none";
+          exteriorVariables.style.display = "block";
+        }
       }
+    }
   }
 
   const generateRenderingBtn = document.getElementById("generateRenderingBtn");
   if (generateRenderingBtn) {
-      generateRenderingBtn.style.display = "block";
+    generateRenderingBtn.style.display = "block";
   }
-}
 
-function checkCustom(selectId) {
-  const selectElement = document.getElementById(selectId);
-  if (selectElement) {
+  function checkCustom(selectId) {
+    const selectElement = document.getElementById(selectId);
+    if (selectElement) {
       const customInputId = selectElement.getAttribute("data-custom");
       const customInputElement = document.getElementById(customInputId);
       if (customInputElement) {
-          if (selectElement.value === "custom") {
-              customInputElement.style.display = "block";
-          } else {
-              customInputElement.style.display = "none";
-          }
-      }
-  }
-}
-
-function showSelection() {
-  const renderingType = document.getElementById("renderingType").value;
-  let selections = {};
-
-  if (renderingType === "interior") {
-      const interiorVariables = ["composition", "cameraAngle", "designStyle", "roomType", "flooring", "colorPalette", "lighting"];
-      interiorVariables.forEach(variableId => {
-          const variableElement = document.getElementById(variableId);
-          selections[variableId] = variableElement.value === "custom" ? document.getElementById(`custom${variableId}`).value : variableElement.value;
-      });
-  } else if (renderingType === "exterior") {
-      const exteriorVariables = ["exteriorType", "architecturalStyle", "colorpalette", "exteriorMaterials", "roofType"];
-      exteriorVariables.forEach(variableId => {
-          const variableElement = document.getElementById(variableId);
-          selections[variableId] = variableElement.value === "custom" ? document.getElementById(`custom${variableId}`).value : variableElement.value;
-      });
-  }
-
-  const promptJSON = JSON.stringify({ prompt: selections });
-  sendToApi(promptJSON);
-}
-
-function generateRendering() {
-  console.log('generateRendering called');
-  document.getElementById("generateRenderingBtn").style.display = "none";
-  document.getElementById("loadingIndicator").style.display = "block";
-  showSelection();
-}
-
-   function sendToApi(promptJSON) {
-     console.log('sendToApi function called');
-      console.log(promptJSON);
-    fetch("https://a22d9f3a43624ea4894e670d88cb2ddf.vfs.cloud9.eu-north-1.amazonaws.com/api/call", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(promptJSON)
-  })
-  .then(response => {
-    if (!response.ok) {
-      if (response.status === 400) {
-        throw new Error('Bad Request: Invalid input data');
-      } else {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        if (selectElement.value === "custom") {
+          customInputElement.style.display = "block";
+        } else {
+          customInputElement.style.display = "none";
+        }
       }
     }
-    return response.blob();
-  })
-   .then(blob => {
-     document.getElementById("loadingIndicator").style.display = "none";
-     console.log(imageUrl);
-     const imageUrl = URL.createObjectURL(blob);
-     const imageElement = document.getElementById("renderedImage");
-     imageElement.src = imageUrl;
-     imageElement.style.display = "block";
-   })
-   .catch(error => {
-     console.error("Error:", error);
-     const resultContainer = document.getElementById("result");
-     resultContainer.textContent = `Error: ${error.message}`;
-     document.getElementById("loadingIndicator").style.display = "none";
-   });
- }
+  }
 
- document.addEventListener('DOMContentLoaded', function() {
-   showVariables();
-   checkCustom();
- });
+  function showSelection() {
+    const renderingType = document.getElementById("renderingType").value;
+    let selections = {};
 
- const formElement = document.getElementById("yourFormId");
- if (formElement) {
-   formElement.addEventListener("submit", function(event) {
-     event.preventDefault(); 
-     generateRendering();
-     return false;
-   });
- }
+    if (renderingType === "interior") {
+      const interiorVariables = ["composition", "cameraAngle", "designStyle", "roomType", "flooring", "colorPalette", "lighting"];
+      interiorVariables.forEach(variableId => {
+        const variableElement = document.getElementById(variableId);
+        selections[variableId] = variableElement.value === "custom" ? document.getElementById(`custom${variableId}`).value : variableElement.value;
+      });
+    } else if (renderingType === "exterior") {
+      const exteriorVariables = ["exteriorType", "architecturalStyle", "colorpalette", "exteriorMaterials", "roofType"];
+      exteriorVariables.forEach(variableId => {
+        const variableElement = document.getElementById(variableId);
+        selections[variableId] = variableElement.value === "custom" ? document.getElementById(`custom${variableId}`).value : variableElement.value;
+      });
+    }
+
+    // Add the additional fields to the selections object
+    selections["key"] = "";
+    selections["negative_prompt"] = "((out of frame)), ((extra fingers)), mutated hands, ((poorly drawn hands)), ((poorly drawn face)), (((mutation))), (((deformed))), (((tiling))), ((naked)), ((tile)), ((fleshpile)), ((ugly)), (((abstract))), blurry, ((bad anatomy)), ((bad proportions)), ((extra limbs)), cloned face, (((skinny))), glitchy, ((extra breasts)), ((double torso)), ((extra arms)), ((extra hands)), ((mangled fingers)), ((missing breasts)), (missing lips), ((ugly face)), ((fat)), ((extra legs))";
+    selections["width"] = "512";
+    selections["height"] = "512";
+    selections["samples"] = "1";
+    selections["num_inference_steps"] = "20";
+    selections["safety_checker"] = "no";
+    selections["enhance_prompt"] = "yes";
+    selections["seed"] = null;
+    selections["guidance_scale"] = 7.5;
+    selections["webhook"] = null;
+    selections["track_id"] = null;
+  }
+      const promptJSON = JSON.stringify(selections);
+    sendToApi(promptJSON);
+  }
+
+  function generateRendering() {
+    console.log('generateRendering called');
+    document.getElementById("generateRenderingBtn").style.display = "none";
+    document.getElementById("loadingIndicator").style.display = "block";
+    showSelection();
+  }
+
+  function sendToApi(promptJSON) {
+    console.log('sendToApi function called');
+    console.log(promptJSON);
+    fetch("https://a22d9f3a43624ea4894e670d88cb2ddf.vfs.cloud9.eu-north-1.amazonaws.com/api/call", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(promptJSON)
+    })
+    .then(response => {
+      if (!response.ok) {
+        if (response.status === 400) {
+          throw new Error('Bad Request: Invalid input data');
+        } else {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+      }
+      return response.blob();
+    })
+    .then(blob => {
+      document.getElementById("loadingIndicator").style.display = "none";
+      console.log(imageUrl);
+      const imageUrl = URL.createObjectURL(blob);
+      const imageElement = document.getElementById("renderedImage");
+      imageElement.src = imageUrl;
+      imageElement.style.display = "block";
+    })
+    .catch(error => {
+      console.error("Error:", error);
+      const resultContainer = document.getElementById("result");
+      resultContainer.textContent = `Error: ${error.message}`;
+      document.getElementById("loadingIndicator").style.display = "none";
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    showVariables();
+    checkCustom();
+  });
+
+  const formElement = document.getElementById("yourFormId");
+  if (formElement) {
+    formElement.addEventListener("submit", function(event) {
+      event.preventDefault(); 
+      generateRendering();
+      return false;
+    });
+  }
 </script>
-
 </body>
 </html>
