@@ -325,6 +325,7 @@ function showSelection() {
 }
 
 function generateRendering() {
+  console.log('generateRendering called');
   document.getElementById("generateRenderingBtn").style.display = "none";
   document.getElementById("loadingIndicator").style.display = "block";
   showSelection();
@@ -347,6 +348,7 @@ function generateRendering() {
    })
    .then(blob => {
      document.getElementById("loadingIndicator").style.display = "none";
+     console.log(imageUrl);
      const imageUrl = URL.createObjectURL(blob);
      const imageElement = document.getElementById("renderedImage");
      imageElement.src = imageUrl;
