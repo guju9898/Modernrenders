@@ -346,9 +346,10 @@ function showSelection() {
 
   // Send the JSON string to the backend
   sendToApi(promptJSON);
+  
+  const promptJSON = JSON.stringify(selections);
+  sendToApi(promptJSON);
 }
-      const promptJSON = JSON.stringify(selections);
-    sendToApi(promptJSON);
 
   function generateRendering() {
     console.log('generateRendering called');
