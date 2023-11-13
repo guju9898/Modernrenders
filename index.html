@@ -317,12 +317,16 @@
     // Inside your front-end script
 
     // Add an event listener to the form's submit event
+    document.addEventListener('DOMContentLoaded', function() {
    	const formElement = document.getElementById("yourFormId");
-    formElement.addEventListener("submit", function(event) {
+    if (formElement) {
+      formElement.addEventListener("submit", function(event) {
         event.preventDefault(); // Prevent the default form submission behavior
         showSelection();
         return false;
-    });
+        });
+      }
+    });  
 
     // Move the button and result div inside the script tag
     const buttonElement = document.createElement("button");
