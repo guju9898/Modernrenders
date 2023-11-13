@@ -256,8 +256,8 @@
 
     <div id="result"></div>
 
-   <script>
     <script>
+    document.addEventListener('DOMContentLoaded', function() {
     function showVariables() {
         const renderingType = document.getElementById("renderingType").value;
         const variablesContainer = document.getElementById("variablesContainer");
@@ -370,7 +370,6 @@
         });
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
         const formElement = document.getElementById("yourFormId");
         if (formElement) {
             formElement.addEventListener("submit", function(event) {
