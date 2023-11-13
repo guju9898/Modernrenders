@@ -79,7 +79,7 @@
 
 
         <label for="roomType">Room Type:</label>
-        <select id="roomType" onchange="checkCustom('roomType" data-custom="customRoomType">
+        <select id="roomType" onchange="checkCustom('roomType') data-custom="customRoomType">
             <option value="LivingRoom">Living Room</option>
             <option value="Kitchen">Kitchen</option>
             <option value="Bedroom">Bedroom</option>
@@ -255,40 +255,48 @@
     <div id="result"></div>
 
    <script>
+    <script>
     function showVariables() {
         const renderingType = document.getElementById("renderingType").value;
         const variablesContainer = document.getElementById("variablesContainer");
         const interiorVariables = document.getElementById("interiorVariables");
         const exteriorVariables = document.getElementById("exteriorVariables");
 
-        if (renderingType === "select") {
-            variablesContainer.style.display = "none";
-            interiorVariables.style.display = "none";
-            exteriorVariables.style.display = "none";
-        } else {
-            variablesContainer.style.display = "block";
-            if (renderingType === "interior") {
-                interiorVariables.style.display = "block";
-                exteriorVariables.style.display = "none";
-            } else if (renderingType === "exterior") {
+        if (variablesContainer && interiorVariables && exteriorVariables) {
+            if (renderingType === "select") {
+                variablesContainer.style.display = "none";
                 interiorVariables.style.display = "none";
-                exteriorVariables.style.display = "block";
+                exteriorVariables.style.display = "none";
+            } else {
+                variablesContainer.style.display = "block";
+                if (renderingType === "interior") {
+                    interiorVariables.style.display = "block";
+                    exteriorVariables.style.display = "none";
+                } else if (renderingType === "exterior") {
+                    interiorVariables.style.display = "none";
+                    exteriorVariables.style.display = "block";
+                }
             }
         }
 
-        // Show the Generate button after making selections
-        document.getElementById("generateRenderingBtn").style.display = "block";
+        const generateRenderingBtn = document.getElementById("generateRenderingBtn");
+        if (generateRenderingBtn) {
+            generateRenderingBtn.style.display = "block";
+        }
     }
 
     function checkCustom(selectId) {
         const selectElement = document.getElementById(selectId);
-        const customInputId = selectElement.getAttribute("data-custom");
-        const customInputElement = document.getElementById(customInputId);
-
-        if (selectElement.value === "custom") {
-            customInputElement.style.display = "block";
-        } else {
-            customInputElement.style.display = "none";
+        if (selectElement) {
+            const customInputId = selectElement.getAttribute("data-custom");
+            const customInputElement = document.getElementById(customInputId);
+            if (customInputElement) {
+                if (selectElement.value === "custom") {
+                    customInputElement.style.display = "block";
+                } else {
+                    customInputElement.style.display = "none";
+                }
+            }
         }
     }
 
