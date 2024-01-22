@@ -319,6 +319,13 @@
         return false;
     });
 
+    // Add an event listener to the 'renderingType' dropdown menu
+    const renderingTypeElement = document.getElementById("renderingType");
+    renderingTypeElement.addEventListener("change", function() {
+        const interiorVariablesElement = document.getElementById("interiorVariables");
+        interiorVariablesElement.style.display = "block";
+    });
+
     // Move the button and result div inside the script tag
     const buttonElement = document.createElement("button");
     buttonElement.textContent = "Show Selections";
