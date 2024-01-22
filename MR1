@@ -245,7 +245,7 @@
 
     </div>
 
-    <button onclick="showSelection()">Show Selections</button>
+    <button onclick="showVariables()">Show Selections</button>
 
     <div id="result"></div>
 
